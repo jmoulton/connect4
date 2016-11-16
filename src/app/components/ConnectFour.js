@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
+import Header from './Header';
+import Board from './Board';
 
 class ConnectFour extends Component {
 
   render() {
     return (
       <section className="main">
-        <h1>Hello World!</h1>
+        <Header/>
+        <Board/>
       </section>
     );
   }
