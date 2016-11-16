@@ -1,10 +1,21 @@
 import React, {PropTypes, Component} from 'react';
 import Button from 'react-button';
+import Token from './Token';
 
 class ConnectButton extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    console.log(event);
+  }
+
   render() {
     return (
-      <Button>This</Button>
+      <Button onClick={this.handleClick}>{this.props.column}</Button>
     );
   }
 }
@@ -17,16 +28,16 @@ class Board extends Component {
         <table>
           <tbody>
             <tr>
-              <th><ConnectButton coordinate="A"/></th>
-              <th><ConnectButton coordinate="B"/></th>
-              <th><ConnectButton coordinate="C"/></th>
-              <th><ConnectButton coordinate="D"/></th>
-              <th><ConnectButton coordinate="E"/></th>
-              <th><ConnectButton coordinate="F"/></th>
-              <th><ConnectButton coordinate="G"/></th>
+              <th><ConnectButton column="A"/></th>
+              <th><ConnectButton column="B"/></th>
+              <th><ConnectButton column="C"/></th>
+              <th><ConnectButton column="D"/></th>
+              <th><ConnectButton column="E"/></th>
+              <th><ConnectButton column="F"/></th>
+              <th><ConnectButton column="G"/></th>
             </tr>
             <tr>
-              <td></td>
+              <td><Token/></td>
               <td></td>
               <td></td>
               <td></td>
@@ -87,7 +98,7 @@ class Board extends Component {
 }
 
 ConnectButton.propTypes = {
-  coordinate: PropTypes.string.isRequired
+  column: PropTypes.string.isRequired
 };
 
 export default Board;
