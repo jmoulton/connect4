@@ -3,10 +3,9 @@ import React, {PropTypes, Component} from 'react';
 class Token extends Component {
 
   render() {
-    // const Red = require("../assets/images/red.png");
-    const Black = require("../assets/images/black.png");
+    const Color = this.props.color === "red" ? require("../assets/images/red.png") : require("../assets/images/black.png");
     return (
-      <img src={Black}/>
+      <img src={Color}/>
     );
   }
 }
