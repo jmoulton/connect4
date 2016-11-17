@@ -7,13 +7,13 @@ class Board extends Component {
     super(props);
     this.state = {
       turn: "player",
-      colA: new Array(6),
-      colB: new Array(6),
-      colC: new Array(6),
-      colD: new Array(6),
-      colE: new Array(6),
-      colF: new Array(6),
-      colG: new Array(6)
+      columns: [new Array(6),
+        new Array(6),
+        new Array(6),
+        new Array(6),
+        new Array(6),
+        new Array(6),
+        new Array(6)]
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -22,50 +22,41 @@ class Board extends Component {
   handleClick(event) {
     const id = event.target.id;
     this.addToken(id);
+    this.checkBoard();
     this.changeTurn();
   }
 
+  checkBoard() {
+  }
+
   addToken(col) {
-    let arr = [];
+    const arr = this.state.columns;
     switch (col) {
       case "A":
-        arr = this.state.colA;
-        arr = this.setPlay(arr);
-        this.setState({colA: arr});
+        arr[0] = this.setPlay(arr[0]);
         break;
       case "B":
-        arr = this.state.colB;
-        arr = this.setPlay(arr);
-        this.setState({colB: arr});
+        arr[1] = this.setPlay(arr[1]);
         break;
       case "C":
-        arr = this.state.colC;
-        arr = this.setPlay(arr);
-        this.setState({colC: arr});
+        arr[2] = this.setPlay(arr[2]);
         break;
       case "D":
-        arr = this.state.colD;
-        arr = this.setPlay(arr);
-        this.setState({colD: arr});
+        arr[3] = this.setPlay(arr[3]);
         break;
       case "E":
-        arr = this.state.colE;
-        arr = this.setPlay(arr);
-        this.setState({colE: arr});
+        arr[4] = this.setPlay(arr[4]);
         break;
       case "F":
-        arr = this.state.colF;
-        arr = this.setPlay(arr);
-        this.setState({colF: arr});
+        arr[5] = this.setPlay(arr[5]);
         break;
       case "G":
-        arr = this.state.colG;
-        arr = this.setPlay(arr);
-        this.setState({colG: arr});
+        arr[6] = this.setPlay(arr[6]);
         break;
       default :
         return null;
     }
+    this.setState({columns: arr});
   }
 
   setPlay(arr) {
@@ -91,6 +82,7 @@ class Board extends Component {
   }
 
   render() {
+    const columns = this.state.columns;
     return (
       <div className="board">
         <table>
@@ -105,58 +97,58 @@ class Board extends Component {
               <th><Button id="G" onClick={this.handleClick}>G</Button></th>
             </tr>
             <tr>
-              <td id="A1">{this.renderToken(this.state.colA[5])}</td>
-              <td id="B1">{this.renderToken(this.state.colB[5])}</td>
-              <td id="C1">{this.renderToken(this.state.colC[5])}</td>
-              <td id="D1">{this.renderToken(this.state.colD[5])}</td>
-              <td id="E1">{this.renderToken(this.state.colE[5])}</td>
-              <td id="F1">{this.renderToken(this.state.colF[5])}</td>
-              <td id="G1">{this.renderToken(this.state.colG[5])}</td>
+              <td id="A1">{this.renderToken(columns[0][5])}</td>
+              <td id="B1">{this.renderToken(columns[1][5])}</td>
+              <td id="C1">{this.renderToken(columns[2][5])}</td>
+              <td id="D1">{this.renderToken(columns[3][5])}</td>
+              <td id="E1">{this.renderToken(columns[4][5])}</td>
+              <td id="F1">{this.renderToken(columns[5][5])}</td>
+              <td id="G1">{this.renderToken(columns[6][5])}</td>
             </tr>
             <tr>
-              <td id="A2">{this.renderToken(this.state.colA[4])}</td>
-              <td id="B2">{this.renderToken(this.state.colB[4])}</td>
-              <td id="C2">{this.renderToken(this.state.colC[4])}</td>
-              <td id="D2">{this.renderToken(this.state.colD[4])}</td>
-              <td id="E2">{this.renderToken(this.state.colE[4])}</td>
-              <td id="F2">{this.renderToken(this.state.colF[4])}</td>
-              <td id="G2">{this.renderToken(this.state.colG[4])}</td>
+              <td id="A2">{this.renderToken(columns[0][4])}</td>
+              <td id="B2">{this.renderToken(columns[1][4])}</td>
+              <td id="C2">{this.renderToken(columns[2][4])}</td>
+              <td id="D2">{this.renderToken(columns[3][4])}</td>
+              <td id="E2">{this.renderToken(columns[4][4])}</td>
+              <td id="F2">{this.renderToken(columns[5][4])}</td>
+              <td id="G2">{this.renderToken(columns[6][4])}</td>
             </tr>
             <tr>
-              <td id="A3">{this.renderToken(this.state.colA[3])}</td>
-              <td id="B3">{this.renderToken(this.state.colB[3])}</td>
-              <td id="C3">{this.renderToken(this.state.colC[3])}</td>
-              <td id="D3">{this.renderToken(this.state.colD[3])}</td>
-              <td id="E3">{this.renderToken(this.state.colE[3])}</td>
-              <td id="F3">{this.renderToken(this.state.colF[3])}</td>
-              <td id="G3">{this.renderToken(this.state.colG[3])}</td>
+              <td id="A3">{this.renderToken(columns[0][3])}</td>
+              <td id="B3">{this.renderToken(columns[1][3])}</td>
+              <td id="C3">{this.renderToken(columns[2][3])}</td>
+              <td id="D3">{this.renderToken(columns[3][3])}</td>
+              <td id="E3">{this.renderToken(columns[4][3])}</td>
+              <td id="F3">{this.renderToken(columns[5][3])}</td>
+              <td id="G3">{this.renderToken(columns[6][3])}</td>
             </tr>
             <tr>
-              <td id="A4">{this.renderToken(this.state.colA[2])}</td>
-              <td id="B4">{this.renderToken(this.state.colB[2])}</td>
-              <td id="C4">{this.renderToken(this.state.colC[2])}</td>
-              <td id="D4">{this.renderToken(this.state.colD[2])}</td>
-              <td id="E4">{this.renderToken(this.state.colE[2])}</td>
-              <td id="F4">{this.renderToken(this.state.colF[2])}</td>
-              <td id="G4">{this.renderToken(this.state.colG[2])}</td>
+              <td id="A4">{this.renderToken(columns[0][2])}</td>
+              <td id="B4">{this.renderToken(columns[1][2])}</td>
+              <td id="C4">{this.renderToken(columns[2][2])}</td>
+              <td id="D4">{this.renderToken(columns[3][2])}</td>
+              <td id="E4">{this.renderToken(columns[4][2])}</td>
+              <td id="F4">{this.renderToken(columns[5][2])}</td>
+              <td id="G4">{this.renderToken(columns[6][2])}</td>
             </tr>
             <tr>
-              <td id="A5">{this.renderToken(this.state.colA[1])}</td>
-              <td id="B5">{this.renderToken(this.state.colB[1])}</td>
-              <td id="C5">{this.renderToken(this.state.colC[1])}</td>
-              <td id="D5">{this.renderToken(this.state.colD[1])}</td>
-              <td id="E5">{this.renderToken(this.state.colE[1])}</td>
-              <td id="F5">{this.renderToken(this.state.colF[1])}</td>
-              <td id="G5">{this.renderToken(this.state.colG[1])}</td>
+              <td id="A5">{this.renderToken(columns[0][1])}</td>
+              <td id="B5">{this.renderToken(columns[1][1])}</td>
+              <td id="C5">{this.renderToken(columns[2][1])}</td>
+              <td id="D5">{this.renderToken(columns[3][1])}</td>
+              <td id="E5">{this.renderToken(columns[4][1])}</td>
+              <td id="F5">{this.renderToken(columns[5][1])}</td>
+              <td id="G5">{this.renderToken(columns[6][1])}</td>
             </tr>
             <tr>
-              <td id="A6">{this.renderToken(this.state.colA[0])}</td>
-              <td id="B6">{this.renderToken(this.state.colB[0])}</td>
-              <td id="C6">{this.renderToken(this.state.colC[0])}</td>
-              <td id="D6">{this.renderToken(this.state.colD[0])}</td>
-              <td id="E6">{this.renderToken(this.state.colE[0])}</td>
-              <td id="F6">{this.renderToken(this.state.colF[0])}</td>
-              <td id="G6">{this.renderToken(this.state.colG[0])}</td>
+              <td id="A6">{this.renderToken(columns[0][0])}</td>
+              <td id="B6">{this.renderToken(columns[1][0])}</td>
+              <td id="C6">{this.renderToken(columns[2][0])}</td>
+              <td id="D6">{this.renderToken(columns[3][0])}</td>
+              <td id="E6">{this.renderToken(columns[4][0])}</td>
+              <td id="F6">{this.renderToken(columns[5][0])}</td>
+              <td id="G6">{this.renderToken(columns[6][0])}</td>
             </tr>
           </tbody>
         </table>
