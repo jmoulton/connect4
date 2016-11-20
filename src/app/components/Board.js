@@ -1,4 +1,5 @@
 /* eslint camelcase: ["error", {properties: "never"}]*/
+/* eslint no-alert: 0*/
 import React, {Component} from 'react';
 import Button from 'react-button';
 import Token from './Token';
@@ -49,7 +50,6 @@ class Board extends Component {
     const id = event.target.id;
     this.addToken(id);
     this.checkBoard();
-    this.changeTurn();
   }
 
   checkBoard() {
@@ -69,6 +69,11 @@ class Board extends Component {
     })
     .then(json => {
       console.log(json);
+      if (json.status === "Game Over") {
+        alert(`Game Over ${this.state.turn} Won!`);
+      } else {
+        this.changeTurn();
+      }
     }).catch(ex => {
       console.log('parsing failed', ex);
     });
@@ -114,7 +119,7 @@ class Board extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        coordinate: String(String(col) + String(index)),
+        coordinate: String(String(col) + String(index + 1)),
         player: this.state.turn,
         game_id: this.state.boardId
       })
