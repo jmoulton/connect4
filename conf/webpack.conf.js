@@ -64,6 +64,7 @@ module.exports = {
     filename: 'index.js'
   },
   entry: [
+    'whatwg-fetch',
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client',
     'whatwg-fetch',

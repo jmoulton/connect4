@@ -1,12 +1,15 @@
+/* eslint camelcase: ["error", {properties: "never"}]*/
 import React, {Component} from 'react';
 import Button from 'react-button';
 import Token from './Token';
+import 'whatwg-fetch';
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
       turn: "player",
+      boardId: null,
       columns: [new Array(6),
         new Array(6),
         new Array(6),
@@ -16,7 +19,30 @@ class Board extends Component {
         new Array(6)]
     };
 
+    this.initiateGame();
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  initiateGame() {
+    fetch('http://b92f9907.ngrok.io/games', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        board: this.state.columns
+      })
+
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      console.log(json);
+      this.setState({boardId: json.id});
+    }).catch(ex => {
+      console.log('parsing failed', ex);
+    });
   }
 
   handleClick(event) {
@@ -27,31 +53,50 @@ class Board extends Component {
   }
 
   checkBoard() {
+    const id = this.state.boardId;
+    fetch(`http://b92f9907.ngrok.io/games/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        board: this.state.columns
+      })
+
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      console.log(json);
+    }).catch(ex => {
+      console.log('parsing failed', ex);
+    });
   }
 
   addToken(col) {
     const arr = this.state.columns;
     switch (col) {
       case "A":
-        arr[0] = this.setPlay(arr[0]);
+        arr[0] = this.setPlay(arr[0], col);
         break;
       case "B":
-        arr[1] = this.setPlay(arr[1]);
+        arr[1] = this.setPlay(arr[1], col);
         break;
       case "C":
-        arr[2] = this.setPlay(arr[2]);
+        arr[2] = this.setPlay(arr[2], col);
         break;
       case "D":
-        arr[3] = this.setPlay(arr[3]);
+        arr[3] = this.setPlay(arr[3], col);
         break;
       case "E":
-        arr[4] = this.setPlay(arr[4]);
+        arr[4] = this.setPlay(arr[4], col);
         break;
       case "F":
-        arr[5] = this.setPlay(arr[5]);
+        arr[5] = this.setPlay(arr[5], col);
         break;
       case "G":
-        arr[6] = this.setPlay(arr[6]);
+        arr[6] = this.setPlay(arr[6], col);
         break;
       default :
         return null;
@@ -59,9 +104,22 @@ class Board extends Component {
     this.setState({columns: arr});
   }
 
-  setPlay(arr) {
+  setPlay(arr, col) {
     const index = arr.findIndex(x => x === undefined);
     arr[index] = {turn: this.state.turn};
+
+    fetch('http://b92f9907.ngrok.io/moves', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        coordinate: String(String(col) + String(index)),
+        player: this.state.turn,
+        game_id: this.state.boardId
+      })
+    });
+
     return arr;
   }
 
