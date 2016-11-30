@@ -39,3 +39,25 @@ th {
     width: 73px;
     border: 1px;
 }
+
+.btn {
+  background: #f2f2f2;
+  background-image: -webkit-linear-gradient(top, #f2f2f2, #ebebeb);
+  background-image: -moz-linear-gradient(top, #f2f2f2, #ebebeb);
+  background-image: -ms-linear-gradient(top, #f2f2f2, #ebebeb);
+  background-image: -o-linear-gradient(top, #f2f2f2, #ebebeb);
+  background-image: linear-gradient(to bottom, #f2f2f2, #ebebeb);
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  font-family: Arial;
+  color: #000000;
+  font-size: 20px;
+  padding: 9px 13px 9px 13px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  text-decoration: none;
+  cursor: pointer;
+}

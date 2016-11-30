@@ -109,6 +109,7 @@ class Board extends Component {
   }
 
   setPlay(arr, col) {
+    console.log(arr);
     const index = arr.findIndex(x => x === undefined);
     arr[index] = {turn: this.state.turn, row: index, col: String(col)};
     this.sendMove(col, index);
@@ -157,13 +158,13 @@ class Board extends Component {
         <table>
           <tbody>
             <tr>
-              <th><btn id="A" onClick={this.handleClick}>A</btn></th>
-              <th><btn id="B" onClick={this.handleClick}>B</btn></th>
-              <th><btn id="C" onClick={this.handleClick}>C</btn></th>
-              <th><btn id="D" onClick={this.handleClick}>D</btn></th>
-              <th><btn id="E" onClick={this.handleClick}>E</btn></th>
-              <th><btn id="F" onClick={this.handleClick}>F</btn></th>
-              <th><btn id="G" onClick={this.handleClick}>G</btn></th>
+              <th><btn className="btn" id="A" onClick={this.handleClick}>A</btn></th>
+              <th><btn className="btn" id="B" onClick={this.handleClick}>B</btn></th>
+              <th><btn className="btn" id="C" onClick={this.handleClick}>C</btn></th>
+              <th><btn className="btn" id="D" onClick={this.handleClick}>D</btn></th>
+              <th><btn className="btn" id="E" onClick={this.handleClick}>E</btn></th>
+              <th><btn className="btn" id="F" onClick={this.handleClick}>F</btn></th>
+              <th><btn className="btn" id="G" onClick={this.handleClick}>G</btn></th>
             </tr>
             <tr>
               <td id="A1">{this.renderToken(columns[0][5])}</td>

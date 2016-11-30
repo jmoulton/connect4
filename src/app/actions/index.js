@@ -58,14 +58,28 @@ export const getNextTurn = (board, turnCount) => {
     const vertical = checkVertical(board, turn, player);
     const horizontal = checkHorizontal(board, turn, player);
 
-    console.log(vertical);
-    console.log(horizontal);
-
     if (vertical.possible === true) {
       turn = vertical;
     } else if (horizontal.possible === true) {
       turn = horizontal;
     }
+
+    return turn;
+  };
+
+  const getNextTurn = (board, turn) => {
+    board.forEach(item => {
+      const arr = item.filter(x => x !== undefined);
+      for (let x = 0; x < arr.length; x++) {
+        if (item[x].turn === "cpu") {
+          turn = {arr: item, col: item[x].col};
+        }
+      }
+    });
+
+    const columns = ["A", "B", "C", "D", "E", "F", "G"];
+    const rand = Math.floor(Math.random() * 6) + 1;
+    turn = {arr: board[rand], col: columns[rand]};
 
     return turn;
   };
@@ -81,9 +95,7 @@ export const getNextTurn = (board, turnCount) => {
     } else if (blockPlayer.possible === true) {
       turn = {arr: blockPlayer.arr, col: winGame.col};
     } else {
-      const columns = ["A", "B", "C", "D", "E", "F", "G"];
-      const rand = Math.floor(Math.random() * 7) + 1;
-      turn = {arr: board[rand], col: columns[rand]};
+      turn = getNextTurn(board, turn);
     }
   }
 
