@@ -1,8 +1,8 @@
 /* eslint camelcase: ["error", {properties: "never"}]*/
 /* eslint no-alert: 0*/
 import React, {Component} from 'react';
-import Button from 'react-button';
 import Token from './Token';
+import {getNextTurn} from '../actions';
 import 'whatwg-fetch';
 
 class Board extends Component {
@@ -11,6 +11,7 @@ class Board extends Component {
     this.state = {
       turn: "player",
       boardId: null,
+      turnCount: 0,
       columns: [new Array(6),
         new Array(6),
         new Array(6),
@@ -25,7 +26,7 @@ class Board extends Component {
   }
 
   initiateGame() {
-    fetch('http://b92f9907.ngrok.io/games', {
+    fetch('http://cef932a3.ngrok.io/games', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -54,7 +55,7 @@ class Board extends Component {
 
   checkBoard() {
     const id = this.state.boardId;
-    fetch(`http://b92f9907.ngrok.io/games/${id}`, {
+    fetch(`http://cef932a3.ngrok.io/games/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -111,9 +112,16 @@ class Board extends Component {
 
   setPlay(arr, col) {
     const index = arr.findIndex(x => x === undefined);
-    arr[index] = {turn: this.state.turn};
+    arr[index] = {turn: this.state.turn, row: index, col: String(col)};
+    this.sendMove(col, index);
+    const newTurnCount = this.state.turnCount + 1;
+    console.log(newTurnCount);
+    this.setState({turnCount: newTurnCount});
+    return arr;
+  }
 
-    fetch('http://b92f9907.ngrok.io/moves', {
+  sendMove(col, index) {
+    fetch('http://cef932a3.ngrok.io/moves', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -124,13 +132,14 @@ class Board extends Component {
         game_id: this.state.boardId
       })
     });
-
-    return arr;
   }
 
   changeTurn() {
     if (this.state.turn === "player") {
       this.setState({turn: "cpu"});
+      const obj = getNextTurn(this.state.columns, this.state.turnCount);
+      this.setPlay(obj.arr, obj.col);
+      this.checkBoard();
     } else {
       this.setState({turn: "player"});
     }
@@ -151,13 +160,13 @@ class Board extends Component {
         <table>
           <tbody>
             <tr>
-              <th><Button id="A" onClick={this.handleClick}>A</Button></th>
-              <th><Button id="B" onClick={this.handleClick}>B</Button></th>
-              <th><Button id="C" onClick={this.handleClick}>C</Button></th>
-              <th><Button id="D" onClick={this.handleClick}>D</Button></th>
-              <th><Button id="E" onClick={this.handleClick}>E</Button></th>
-              <th><Button id="F" onClick={this.handleClick}>F</Button></th>
-              <th><Button id="G" onClick={this.handleClick}>G</Button></th>
+              <th><btn id="A" onClick={this.handleClick}>A</btn></th>
+              <th><btn id="B" onClick={this.handleClick}>B</btn></th>
+              <th><btn id="C" onClick={this.handleClick}>C</btn></th>
+              <th><btn id="D" onClick={this.handleClick}>D</btn></th>
+              <th><btn id="E" onClick={this.handleClick}>E</btn></th>
+              <th><btn id="F" onClick={this.handleClick}>F</btn></th>
+              <th><btn id="G" onClick={this.handleClick}>G</btn></th>
             </tr>
             <tr>
               <td id="A1">{this.renderToken(columns[0][5])}</td>
