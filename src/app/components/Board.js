@@ -109,7 +109,6 @@ class Board extends Component {
   }
 
   setPlay(arr, col) {
-    console.log(arr);
     const index = arr.findIndex(x => x === undefined);
     arr[index] = {turn: this.state.turn, row: index, col: String(col)};
     this.sendMove(col, index);

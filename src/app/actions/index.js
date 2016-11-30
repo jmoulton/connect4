@@ -68,28 +68,29 @@ export const getNextTurn = (board, turnCount) => {
   };
 
   const getNextTurn = (board, turn) => {
-    board.forEach(item => {
-      const arr = item.filter(x => x !== undefined);
-      for (let x = 0; x < arr.length; x++) {
-        if (item[x].turn === "cpu") {
-          turn = {arr: item, col: item[x].col};
-        }
+    for (let itemIndex = 0; itemIndex < board.length; itemIndex++) {
+      const arr = board[itemIndex].filter(x => x !== undefined);
+      if (arr.length > 0 && arr[arr.length - 1].turn === "cpu") {
+        const item = itemIndex + 1 < board.length ? board[itemIndex + 1] : board[itemIndex - 1];
+        turn = {arr: item, col: arr[0].col};
       }
-    });
-
-    const columns = ["A", "B", "C", "D", "E", "F", "G"];
-    const rand = Math.floor(Math.random() * 6) + 1;
-    turn = {arr: board[rand], col: columns[rand]};
+    }
 
     return turn;
   };
 
   let turn = {};
-  if (turnCount < 4) {
-    turn = {arr: board[3], col: "D"};
+  if (turnCount < 5) {
+    if (board[3].filter(x => x !== undefined).length > 4) {
+      turn = {arr: board[2], col: "C"};
+    } else {
+      turn = {arr: board[3], col: "D"};
+    }
   } else {
     const winGame = addFourthToken(board, turn, "cpu");
     const blockPlayer = addFourthToken(board, turn, "player");
+    console.log(winGame);
+    console.log(blockPlayer);
     if (winGame.possible === true) {
       turn = {arr: winGame.arr, col: winGame.col};
     } else if (blockPlayer.possible === true) {
