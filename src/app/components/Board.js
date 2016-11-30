@@ -26,7 +26,7 @@ class Board extends Component {
   }
 
   initiateGame() {
-    fetch('http://cef932a3.ngrok.io/games', {
+    fetch('http://cd8e8382.ngrok.io/games', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -40,7 +40,6 @@ class Board extends Component {
       return response.json();
     })
     .then(json => {
-      console.log(json);
       this.setState({boardId: json.id});
     }).catch(ex => {
       console.log('parsing failed', ex);
@@ -55,7 +54,7 @@ class Board extends Component {
 
   checkBoard() {
     const id = this.state.boardId;
-    fetch(`http://cef932a3.ngrok.io/games/${id}`, {
+    fetch(`http://cd8e8382.ngrok.io/games/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -69,7 +68,6 @@ class Board extends Component {
       return response.json();
     })
     .then(json => {
-      console.log(json);
       if (json.status === "Game Over") {
         alert(`Game Over ${this.state.turn} Won!`);
       } else {
@@ -115,13 +113,12 @@ class Board extends Component {
     arr[index] = {turn: this.state.turn, row: index, col: String(col)};
     this.sendMove(col, index);
     const newTurnCount = this.state.turnCount + 1;
-    console.log(newTurnCount);
     this.setState({turnCount: newTurnCount});
     return arr;
   }
 
   sendMove(col, index) {
-    fetch('http://cef932a3.ngrok.io/moves', {
+    fetch('http://cd8e8382.ngrok.io/moves', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
