@@ -1,8 +1,12 @@
 {
   "dependencies": {
-    "@blueprintjs/core": "1.0.1",
     "classnames": "^2.2.5",
     "es6-shim": "^0.35.0",
+    "gulp": "gulpjs/gulp#4ed9a4a3275559c73a396eff7e1fde3824951ebb",
+    "gulp-hub": "frankwallis/gulp-hub#d461b9c700df9010d0a8694e4af1fb96d9f38bf4",
+    "gulp-filter": "^4.0.0",
+    "gulp-util": "^3.0.7",
+    "gulp-sass": "^2.1.1",
     "react": "^15.0.1",
     "react-button": "^1.2.1",
     "react-dom": "^15.0.1",

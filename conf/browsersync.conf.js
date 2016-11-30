@@ -9,6 +9,7 @@ const webpackBundler = webpack(webpackConf);
 
 module.exports = function () {
   return {
+    port: process.env.PORT,
     server: {
       baseDir: [
         conf.paths.tmp,
