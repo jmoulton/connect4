@@ -76,22 +76,33 @@ export const getNextTurn = (board, turnCount) => {
       leftWeight += arr.length;
     }
 
-    console.log(leftWeight);
     for (let itemIndex = board.length - 1; itemIndex > 3; itemIndex--) {
       const arr = board[itemIndex].filter(x => x !== undefined);
       rightWeight += arr.length;
     }
-    for (let itemIndex = 0; itemIndex < board.length; itemIndex++) {
-      const arr = board[itemIndex].filter(x => x !== undefined);
-      if (leftWeight > rightWeight || leftWeight === rightWeight) {
+
+    if (rightWeight > leftWeight) {
+      for (let itemIndex = board.length - 1; itemIndex > 3; itemIndex--) {
+        const arr = board[itemIndex].filter(x => x !== undefined);
         if (arr.length > 0 && arr[arr.length - 1].turn === "cpu") {
           const item = itemIndex + 1 < board.length ? board[itemIndex + 1] : board[itemIndex - 1];
           turn = {arr: item, col: arr[0].col};
         }
-      } else if (arr.length > 0 && arr[arr.length - 1].turn === "cpu") {
-        const item = itemIndex - 1 > 0 ? board[itemIndex - 1] : board[itemIndex + 1];
-        turn = {arr: item, col: arr[0].col};
       }
+    } else {
+      for (let itemIndex = 0; itemIndex < board.length - 4; itemIndex++) {
+        const arr = board[itemIndex].filter(x => x !== undefined);
+        if (arr.length > 0 && arr[arr.length - 1].turn === "cpu") {
+          const item = itemIndex - 1 > 0 ? board[itemIndex - 1] : board[itemIndex + 1];
+          turn = {arr: item, col: arr[0].col};
+        }
+      }
+    }
+
+    if (turn.arr === undefined) {
+      const columns = ["A", "B", "C", "D", "E", "F", "G"];
+      const rand = Math.floor(Math.random() * 6) + 1;
+      turn = {arr: board[rand], col: columns[rand]};
     }
 
     return turn;
