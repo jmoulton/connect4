@@ -26,7 +26,7 @@ class Board extends Component {
   }
 
   initiateGame() {
-    fetch('http://5bec5292.ngrok.io/games', {
+    fetch('http://fa6c90fe.ngrok.io/games', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ class Board extends Component {
 
   checkBoard() {
     const id = this.state.boardId;
-    fetch(`http://5bec5292.ngrok.io/games/${id}`, {
+    fetch(`http://fa6c90fe.ngrok.io/games/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -118,7 +118,7 @@ class Board extends Component {
   }
 
   sendMove(col, index) {
-    fetch('http://5bec5292.ngrok.io/moves', {
+    fetch('http://fa6c90fe.ngrok.io/moves', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
